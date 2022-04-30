@@ -1,0 +1,14 @@
+form input,
+button {
+	display: block;
+	margin: 5px;
+}
+
+img {
+	width: 200px;
+	height: 200px;
+}
+
+a {
+	text-decoration: none;
+}
