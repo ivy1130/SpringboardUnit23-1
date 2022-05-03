@@ -9,6 +9,13 @@
     <label for="post-content">Content</label>
     <br>
     <textarea name="post-content" cols="30" rows="10"></textarea>
+    <p>Tags:</p>
+    {% for tag in tags %}
+        <label>
+            <input type="checkbox" name="tags" id="{{tag.id}}" value="{{tag.id}}">
+            {{tag.name}}
+        </label>
+    {% endfor %}
     <input type="submit" value="Add">
 </form>
 <a href="/users/{{user.id}}">Cancel</a>

@@ -6,6 +6,12 @@
 <p>{{post.content}}</p>
 <h5>By <a href="/users/{{user.id}}">{{post.user.first_name}} {{post.user.last_name}}</a></h5>
 
+<p>Tags: 
+    {% for tag in tags %}
+    <a href="/tags/{{tag.id}}">{{tag.name}}</a>
+    {% endfor %}
+</p>
+
 <form>
     <button formaction="/posts/{{post.id}}/edit" formmethod="GET">Edit
     </button>

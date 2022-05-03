@@ -1,7 +1,12 @@
 form input,
-button {
+button,
+label {
 	display: block;
 	margin: 5px;
+}
+
+label input {
+	display: inline-block;
 }
 
 img {

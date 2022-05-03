@@ -1,6 +1,6 @@
 """Seed file to make sample data for pets db."""
 
-from models import User, db, Post
+from models import User, db, Post, Tag
 from app import app
 from datetime import datetime
 
@@ -17,11 +17,14 @@ ivy = User(first_name = 'Ivy', last_name = 'Liu', img_url = 'https://images.thec
 hannah = User(first_name = 'Hannah', last_name = 'Meacham')
 sophie = User(first_name = 'Sophie', last_name = 'Lutz')
 
-post1 = Post(title = 'first test post', content = 'I hope this is working', created_at = datetime.now(), user_id = 1)
+post = Post(title = 'first test post', content = 'I hope this is working', created_at = datetime.now(), user_id = 1)
+
+tag = Tag(name = 'woo')
 
 # Add new objects to session, so they'll persist
 db.session.add_all([ivy, hannah, sophie])
-db.session.add(post1)
+db.session.add(post)
+db.session.add(tag)
 
 # Commit--otherwise, this never gets saved!
 db.session.commit()

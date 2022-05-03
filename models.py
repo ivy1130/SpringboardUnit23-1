@@ -22,7 +22,7 @@ class User(db.Model):
 
     img_url = db.Column(db.Text)
 
-    posts = db.relationship('Post', cascade="all, delete")
+    posts = db.relationship('Post', backref = 'user', cascade='all, delete-orphan')
 
     def __repr__(self):
         u = self
@@ -49,9 +49,35 @@ class Post(db.Model):
                     db.ForeignKey('users.id'), 
                     nullable = False)
     
-    user = db.relationship('User')
-    # user = db.relationship('User', backref = 'posts')
+    tags = db.relationship(
+        'Tag', secondary="post_tags", backref="posts")
 
     def __repr__(self):
         p = self
-        return f"<Post id = {p.id} Title = {p.title} Content = {p.content} Created at = {p.created_at}> User id = {p.user_id}"
+        return f"<Post id = {p.id} Title = {p.title} Content = {p.content} Created at = {p.created_at} User id = {p.user_id}>"
+
+class Tag(db.Model):
+    __tablename__ = 'tags'
+
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
+    
+    name = db.Column(db.Text,
+                    unique = True,
+                    nullable = False)
+    
+    def __repr__(self):
+        t = self
+        return f"<Tag id = {t.id} Name = {t.name}>"
+
+    post_tags = db.relationship('PostTag', cascade = 'all, delete-orphan')
+
+class PostTag(db.Model):
+    __tablename__ = 'post_tags'
+
+    post_id = db.Column(db.Integer, db.ForeignKey(
+        'posts.id'), primary_key=True)
+
+    tag_id = db.Column(db.Integer, db.ForeignKey(
+        'tags.id'), primary_key=True)
